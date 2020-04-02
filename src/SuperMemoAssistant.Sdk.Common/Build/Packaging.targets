@@ -1,0 +1,21 @@
+<Project>
+  
+  <Target Name="LoadPackageReleaseNotes">
+    <ReadFile FilePath="$(ChangeLogFile)" Default="">
+      <Output TaskParameter="Content" PropertyName="PackageReleaseNotes" />
+    </ReadFile>
+  </Target>
+  
+  <Target Name="PreCheckPackage" BeforeTargets="PreparePackage">
+    <PropertyGroup>
+      <PackageFileName>$(PackageId).$(PackageVersion).nupkg</PackageFileName>
+      <PackageFilePath>$([System.IO.Path]::Combine('$(PackageOutputPath)', '$(PackageFileName)'))</PackageFilePath>
+    </PropertyGroup>
+      
+    <Error Text="Package $(PackageFileName) already exists. Commit your work using git to create a new release, or delete the existing package. Package file path: '$(PackageFilePath)'"
+           Condition="Exists('$(PackageFilePath)')" />
+  </Target>
+  
+  <Target Name="PreparePackage" BeforeTargets="GenerateNuspec" DependsOnTargets="WriteChangeLogs ; LoadPackageReleaseNotes" />
+
+</Project>

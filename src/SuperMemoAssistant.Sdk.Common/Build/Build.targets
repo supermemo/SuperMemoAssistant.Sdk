@@ -1,0 +1,54 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Target Name="NBGV_CheckAndSaveProjectVersionInfo"
+          BeforeTargets="BeforeBuild"
+          Condition=" '$(NBGV_CheckAndSaveProjectVersionInfoFlag)' == '' ">
+    <Error Text="Project $(AssemblyName) doesn't define a 'Version' property"
+           Condition=" '$(AssemblyVersion)' == '' " />
+
+    <PropertyGroup>
+      <NBGV_CheckAndSaveProjectVersionInfoFlag>true</NBGV_CheckAndSaveProjectVersionInfoFlag>
+      <VersionJsonFilePath Condition=" '$(VersionJsonFilePath)' == '' ">version.json</VersionJsonFilePath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <_VersionJsonContent Include=".">
+        <version>$(AssemblyVersion)</version>
+      </_VersionJsonContent>
+    </ItemGroup>
+
+    <WriteJsonFile FilePath="$(VersionJsonFilePath)"
+                   NodesContent="@(_VersionJsonContent)" />
+  </Target>
+  
+  <Target Name="NBGV_CancelGetBuildVersionBeforePack"
+          Condition=" '$(NBGV_UseProjectVersion.ToLower())' == 'true' ">
+    <PropertyGroup>
+      <_GNDOGetBuildVersionIndex>$(GenerateNuspecDependsOn.IndexOf("GetBuildVersion"))</_GNDOGetBuildVersionIndex>
+      <GenerateNuspecDependsOn>$(GenerateNuspecDependsOn.Remove($(_GNDOGetBuildVersionIndex), 16).Trim())</GenerateNuspecDependsOn>
+    </PropertyGroup>
+  </Target>
+
+  <!-- Supplement NBGV versions with height -->
+  <!-- Original https://github.com/xunit/xunit/blob/42031495bc52d10d52733e4af9ea33a8c1257a05/src/Directory.Build.targets -->
+  <Target Name="UpdateAssemblyVersionInfo"
+          BeforeTargets="GenerateAssemblyVersionInfo"
+          DependsOnTargets="GetBuildVersion"
+          Condition=" '$(NBGV_UseProjectVersion.ToLower())' == 'true' ">
+    <PropertyGroup>
+      <AssemblyInformationalVersion Condition=" '$(PrereleaseVersion)' == '' ">$(BuildVersionSimple).$(GitVersionHeight)</AssemblyInformationalVersion>
+      <AssemblyInformationalVersion Condition=" '$(PrereleaseVersion)' != '' ">$(BuildVersionSimple)$(PrereleaseVersion).$(GitVersionHeight)+$(GitCommitIdShort)</AssemblyInformationalVersion>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="UpdateNuSpecProperties"
+          BeforeTargets="GenerateNuspec"
+          DependsOnTargets="GetBuildVersion"
+          Condition=" '$(NBGV_UseProjectVersion.ToLower())' == 'true' ">
+    <PropertyGroup>
+      <PackageVersion Condition=" '$(PrereleaseVersion)' == '' ">$(BuildVersionSimple).$(GitVersionHeight)</PackageVersion>
+      <PackageVersion Condition=" '$(PrereleaseVersion)' != '' ">$(BuildVersionSimple)$(PrereleaseVersion).$(GitVersionHeight)+$(GitCommitIdShort)</PackageVersion>
+    </PropertyGroup>
+  </Target>
+  
+</Project>

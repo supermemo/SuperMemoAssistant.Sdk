@@ -1,0 +1,14 @@
+<Project>
+
+  <PropertyGroup Label="PackageInfo">
+    <PackageIconUrl Condition=" '$(PackageIconUrl)' == '' ">https://github.com/supermemo/Documentation/raw/master/docs/sma/content/images/icons/robot.ico</PackageIconUrl>
+    <RepositoryType Condition=" '$(RepositoryType)' == '' ">git</RepositoryType>
+  </PropertyGroup>
+  
+  <PropertyGroup Label="Package Settings">
+    <PackageOutputPath Condition=" '$(PackageOutputPath)' == '' ">$(SolutionDir)releases\</PackageOutputPath>
+    <IncludeSymbols Condition=" '$(IncludeSymbols)' == '' ">true</IncludeSymbols>
+    <SymbolPackageFormat Condition=" '$(SymbolPackageFormat)' == '' ">snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  
+</Project>
