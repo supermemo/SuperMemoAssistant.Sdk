@@ -5,10 +5,11 @@
            Condition=" '$(MSBuildToolsVersionString)' == '' " />
 
     <PropertyGroup>
-      <MSBuildToolsMinVersion>0.2.58</MSBuildToolsMinVersion>
+      <MSBuildToolsMinVersion>0.2.60</MSBuildToolsMinVersion>
     </PropertyGroup>
 
     <Error Text="MSBuild.Tools must be &gt;= $(MSBuildToolsMinVersion). Current version $(MSBuildToolsVersionString)."
            Condition="$([System.Version]::Parse($(MSBuildToolsVersionString))) &lt; $([System.Version]::Parse($(MSBuildToolsMinVersion)))" />
   </Target>
+
 </Project>

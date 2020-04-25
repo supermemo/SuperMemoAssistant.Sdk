@@ -2,18 +2,7 @@
 
   <PropertyGroup>
     <NBGV_UseProjectVersion Condition=" '$(NBGV_UseProjectVersion)' == '' ">true</NBGV_UseProjectVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Label="Automatic Version 2">
-    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
-    <UpdatePackageVersion>False</UpdatePackageVersion>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-    <AssemblyVersionSettings>IncrementOnDemand.IncrementOnDemand.IncrementOnDemand.None</AssemblyVersionSettings>
-    <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.IncrementOnDemand.None</AssemblyFileVersionSettings>
-    <AssemblyInfoVersionSettings>IncrementOnDemand.IncrementOnDemand.IncrementOnDemand.None</AssemblyInfoVersionSettings>
+    <NBGV_WriteProjectVersion Condition=" '$(NBGV_WriteProjectVersion)' == '' ">true</NBGV_WriteProjectVersion>
   </PropertyGroup>
 
 </Project>
