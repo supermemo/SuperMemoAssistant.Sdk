@@ -15,7 +15,7 @@
           Condition=" '$(NBGV_UseProjectVersion.ToLower())' == 'true' ">
     <PropertyGroup>
       <PackageVersion Condition=" '$(PrereleaseSuffix)' == '' ">$(BuildVersionSimple)</PackageVersion>
-      <PackageVersion Condition=" '$(PrereleaseSuffix)' != '' ">$(BuildVersionSimple)$(PrereleaseSuffix)-$(GitVersionHeight)</PackageVersion>
+      <PackageVersion Condition=" '$(PrereleaseSuffix)' != '' ">$(BuildVersionSimple)$(PrereleaseSuffix).$(GitVersionHeight)</PackageVersion>
     </PropertyGroup>
   </Target>
   

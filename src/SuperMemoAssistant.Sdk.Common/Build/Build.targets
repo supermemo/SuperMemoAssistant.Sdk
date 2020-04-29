@@ -59,7 +59,7 @@
           Condition=" '$(NBGV_UseProjectVersion.ToLower())' == 'true' ">
     <PropertyGroup>
       <AssemblyInformationalVersion Condition=" '$(PrereleaseSuffix)' == '' ">$(BuildVersionSimple)</AssemblyInformationalVersion>
-      <AssemblyInformationalVersion Condition=" '$(PrereleaseSuffix)' != '' ">$(BuildVersionSimple)$(PrereleaseSuffix)-$(GitVersionHeight)</AssemblyInformationalVersion>
+      <AssemblyInformationalVersion Condition=" '$(PrereleaseSuffix)' != '' ">$(BuildVersionSimple)$(PrereleaseSuffix).$(GitVersionHeight)</AssemblyInformationalVersion>
     </PropertyGroup>
   </Target>
   
