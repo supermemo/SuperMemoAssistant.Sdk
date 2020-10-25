@@ -14,7 +14,7 @@
           DependsOnTargets="GetBuildVersion;ReadPrereleaseSuffix"
           Condition=" '$(NBGV_UseProjectVersion.ToLower())' == 'true' ">
     <PropertyGroup>
-      <PackageVersion Condition=" '$(PrereleaseSuffix)' == '' ">$(BuildVersionSimple)</PackageVersion>
+      <PackageVersion Condition=" '$(PrereleaseSuffix)' == '' ">$(BuildVersionSimple).$(GitVersionHeight)</PackageVersion>
       <PackageVersion Condition=" '$(PrereleaseSuffix)' != '' ">$(BuildVersionSimple)$(PrereleaseSuffix).$(GitVersionHeight)</PackageVersion>
     </PropertyGroup>
   </Target>
